@@ -1,18 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Barcha yangiliklar</title>
 </head>
-
 <body>
-    <h2 style="text-align: center;border: 2px solid red;width: fit-content;margin: 0 auto;padding: 0 10px;">Barcha yangiliklar</h2>
+    <div style="text-align: center; border: 2px solid red; margin: 0 auto; width: fit-content; padding: 0 10px;"><h2 >Barcha yangiliklaR</h2></div>
     {% for new in news %}
-        <p style="font-weight: bold;" >{{new.title}}</p>
+        <p style="font-weight: bold;"><a href="{% url 'detail' new.id %}">{{ new.title }}</a></p>
     {% endfor %}
-
 </body>
-
 </html>
