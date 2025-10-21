@@ -19,9 +19,19 @@ def detail(request, pk):
 def home_page_view(request):
     categories = Category.objects.all()
     news = News.objects.all()
+    last_news = News.objects.all().order_by("-published_at")[:6]
+
+    uzb_news_last=News.objects.select_related("category").filter(status=News.Status.Published, category__name__iexact="o'zbekiston").order_by("-published_at")[0]
+    uzb_news=News.objects.select_related("category").filter(status=News.Status.Published, category__name__iexact="o'zbekiston").order_by("-published_at")[1:5]
+
+
     context = {
         'categories': categories,
-        'news': news
+        'news': news,
+        'last_news': last_news,
+        'uzb_news_last': uzb_news_last,
+        'uzb_news': uzb_news
+
     }
     return render(request, 'news/index.html', context)
 
@@ -39,3 +49,14 @@ def about_view(request):
     context = {}
     return render(request, 'news/about.html',context)
 
+
+
+def for_base_html(request):
+    categories = Category.objects.all()
+    news = News.objects.all()
+    context = {
+        'categories':categories,
+        'news':news
+
+    }
+    return render(request, 'news/base.html', context)

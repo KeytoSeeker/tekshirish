@@ -8,63 +8,45 @@
     <div class="row">
       <div class="col-lg-8 col-md-8 col-sm-8">        
         <div class="slick_slider">
-          <div class="single_iteam"> <a href="../../templates/news/single_page.html"> <img src="../../static/images/slider_img4.jpg" alt=""></a>
+            {% for new in news %}
+          <div class="single_iteam"> <a href="{% url 'detail' new.id %}"> <
+          {% if new.image %}
+            <img src="{{ new.image.url }}" alt="x">
+            {% elif new.video %}
+            <video controls width="100%"><source src="{{ new.video.url }}" type="video/"></video>
+            {% else %}
+            <img src="{% static 'images/logo.jpg' %}" alt="y">
+          {% endif %}
+          </a>
             <div class="slider_article">
-              <h2><a class="slider_tittle" href="../../templates/news/single_page.html">Fusce eu nulla semper porttitor felis sit amet</a></h2>
-              <p>Nunc tincidunt, elit non cursus euismod, lacus augue ornare metus, egestas imperdiet nulla nisl quis mauris. Suspendisse a pharetra urna. Morbi dui...</p>
-            </div>
-          </div>    
-          <div class="single_iteam"> <a href="../../templates/news/single_page.html"> <img src="../../static/images/slider_img2.jpg" alt=""></a>
-            <div class="slider_article">
-              <h2><a class="slider_tittle" href="../../templates/news/single_page.html">Fusce eu nulla semper porttitor felis sit amet</a></h2>
-              <p>Nunc tincidunt, elit non cursus euismod, lacus augue ornare metus, egestas imperdiet nulla nisl quis mauris. Suspendisse a pharetra urna. Morbi dui...</p>
-            </div>
-          </div>
-          <div class="single_iteam"> <a href="../../templates/news/single_page.html"> <img src="../../static/images/slider_img3.jpg" alt=""></a>
-            <div class="slider_article">
-              <h2><a class="slider_tittle" href="../../templates/news/single_page.html">Fusce eu nulla semper porttitor felis sit amet</a></h2>
-              <p>Nunc tincidunt, elit non cursus euismod, lacus augue ornare metus, egestas imperdiet nulla nisl quis mauris. Suspendisse a pharetra urna. Morbi dui...</p>
+              <h2><a class="slider_tittle" href="../../templates/news/single_page.html">{{ new.title }}</a></h2>
+              <p>{{ new.body | truncatewords:30 }}</p>
             </div>
           </div>
-          <div class="single_iteam"> <a href="../../templates/news/single_page.html"> <img src="../../static/images/slider_img1.jpg" alt=""></a>
-            <div class="slider_article">
-              <h2><a class="slider_tittle" href="../../templates/news/single_page.html">Fusce eu nulla semper porttitor felis sit amet</a></h2>
-              <p>Nunc tincidunt, elit non cursus euismod, lacus augue ornare metus, egestas imperdiet nulla nisl quis mauris. Suspendisse a pharetra urna. Morbi dui...</p>
-            </div>
-          </div>
+            {% endfor %}
         </div>
       </div>
       <div class="col-lg-4 col-md-4 col-sm-4">
         <div class="latest_post">
-          <h2><span>Latest post</span></h2>
+          <h2><span>So'nggi yangiliklar</span></h2>
           <div class="latest_post_container">
             <div id="prev-button"><i class="fa fa-chevron-up"></i></div>
             <ul class="latest_postnav">
+                {% for last_new in last_news %}
               <li>
-                <div class="media"> <a href="../../templates/news/single_page.html" class="media-left"> <img alt="" src="../../static/images/post_img1.jpg"> </a>
-                  <div class="media-body"> <a href="../../templates/news/single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 1</a> </div>
+                <div class="media"> <a href="{% url 'detail' last_new.id %}" class="media-left">
+                {% if last_new.image %}
+                    <img alt="" src=" {{ last_new.image.url }}">
+                {% elif last_new.video %}
+                    <video controls width="90px" height="70px"><source src="{{ new.video.url }}" type="video/mp4"></video>
+                {% else %}
+                    <img src="{% static 'images/logo.jpg' %}" alt="x">
+                    {% endif %}
+                </a>
+                  <div class="media-body"> <a href="{% url 'detail' last_new.id %}" class="catg_title"> {{ last_new.title | truncatewords:5 }}</a> </div>
                 </div>
               </li>
-              <li>
-                <div class="media"> <a href="../../templates/news/single_page.html" class="media-left"> <img alt="" src="../../static/images/post_img1.jpg"> </a>
-                  <div class="media-body"> <a href="../../templates/news/single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 2</a> </div>
-                </div>
-              </li> 
-              <li>  
-                <div class="media"> <a href="../../templates/news/single_page.html" class="media-left"> <img alt="" src="../../static/images/post_img1.jpg"> </a>
-                  <div class="media-body"> <a href="../../templates/news/single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 3</a> </div>
-                </div>
-              </li>
-              <li>
-                <div class="media"> <a href="../../templates/news/single_page.html" class="media-left"> <img alt="" src="../../static/images/post_img1.jpg"> </a>
-                  <div class="media-body"> <a href="../../templates/news/single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 4</a> </div>
-                </div>
-              </li>
-              <li>
-                <div class="media"> <a href="../../templates/news/single_page.html" class="media-left"> <img alt="" src="../../static/images/post_img1.jpg"> </a>
-                  <div class="media-body"> <a href="../../templates/news/single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 2</a> </div>
-                </div>
-              </li>
+                {% endfor%}
             </ul>
             <div id="next-button"><i class="fa  fa-chevron-down"></i></div>
           </div>
@@ -77,11 +59,16 @@
       <div class="col-lg-8 col-md-8 col-sm-8">
         <div class="left_content">
           <div class="single_post_content">
-            <h2><span>Business</span></h2>
+            <h2><span>O'zbekiston</span></h2>
             <div class="single_post_content_left">
               <ul class="business_catgnav  wow fadeInDown">
                 <li>
-                  <figure class="bsbig_fig"> <a href="pages/single_page.html" class="featured_img"> <img alt="" src="../../static/images/featured_img1.jpg"> <span class="overlay"></span> </a>
+                  <figure class="bsbig_fig"> <a href="{% url 'detail' uzb_news_last.id" class="featured_img">
+                      {% if uzb_news_last.image %}
+                        <img alt="" src="{{ uzb_news_last.image.url }}">
+                      {% if uzb_news_last.video %}
+                       <video controls width=""><source src ="{{ uzb_nes_last.video.url }}" type="video/mp4"></video>
+                      <span class="overlay"></span> </a>
                     <figcaption> <a href="pages/single_page.html">Proin rhoncus consequat nisl eu ornare mauris</a> </figcaption>
                     <p>Nunc tincidunt, elit non cursus euismod, lacus augue ornare metus, egestas imperdiet nulla nisl quis mauris. Suspendisse a phare...</p>
                   </figure>
