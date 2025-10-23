@@ -20,9 +20,14 @@ def home_page_view(request):
     categories = Category.objects.all()
     news = News.objects.all()
     last_news = News.objects.all().order_by("-published_at")[:6]
-
-    uzb_news_last=News.objects.select_related("category").filter(status=News.Status.Published, category__name__iexact="o'zbekiston").order_by("-published_at")[0]
-    uzb_news=News.objects.select_related("category").filter(status=News.Status.Published, category__name__iexact="o'zbekiston").order_by("-published_at")[1:5]
+    uzb_news_last=News.objects.select_related("category").filter(status=News.Status.Published, category__name__iexact="o‘zbekiston").order_by("-published_at")[0]
+    uzb_news=News.objects.select_related("category").filter(status=News.Status.Published, category__name__iexact="o‘zbekiston").order_by("-published_at")[1:5]
+    jahon_yangiliklari=News.objects.select_related("category").filter(status=News.Status.Published, category__name__iexact="jahon").order_by("-published_at")[0]
+    jahon_yangiliklar = News.objects.select_related("category").filter(status=News.Status.Published, category__name__iexact="jahon").order_by("-published_at")[1:5]
+    Iqtisodiyot_last_news=News.objects.select_related("category").filter(status=News.Status.Published, category__name__iexact="iqtisodiyot").order_by("-published_at")[0]
+    Iqtisod_news = News.objects.select_related("category").filter(status=News.Status.Published,category__name__iexact="iqtisodiyot").order_by("-published_at")[1:5]
+    sport_last = News.objects.select_related("category").filter(status=News.Status.Published,category__name__iexact="sport").order_by("-published_at")[1:5]
+    sport_last_news = News.objects.select_related("category").filter(status=News.Status.Published,category__name__iexact="sport").order_by("-published_at")[0]
 
 
     context = {
@@ -30,7 +35,13 @@ def home_page_view(request):
         'news': news,
         'last_news': last_news,
         'uzb_news_last': uzb_news_last,
-        'uzb_news': uzb_news
+        'uzb_news': uzb_news,
+        'jahon_yangiliklari':jahon_yangiliklari,
+        'jahon_yangiliklar':jahon_yangiliklar,
+        'Iqtisodiyot_last_news':Iqtisodiyot_last_news,
+        'Iqtisod_news':Iqtisod_news,
+        'sport_last_news':sport_last_news,
+        'sport_last':sport_last
 
     }
     return render(request, 'news/index.html', context)
